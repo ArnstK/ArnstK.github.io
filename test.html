@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+       <title>Demo</title>
+</head>
+<body>
+	
+	<button id='signin'>Login</button>
+	 <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+  <script type="text/javascript" src="https://login.persona.org/include.js"></script>
+  <script type="text/javascript">
+
+	var provider = 'persona';
+
+  
+    // FirebaseSimpleLogin demo instantiation
+    var firebaseRef = new Firebase("https://psucapstone-a.firebaseio.com");
+    var auth = new FirebaseSimpleLogin(firebaseRef, function(error, user) {
+      if (error) {
+        // an error occurred while attempting login
+        alert(error);
+      } else if (user) {
+        // user authenticated with Firebase
+        alert('User ID: ' + user.id + ', Provider: ' + user.provider);
+        
+        // Log out so we can log in again with a different provider.
+        auth.logout();
+      } else {
+        // user is logged out
+      }
+    });
+
+
+	signin.addEventListener('click', function(){
+
+		auth.login(provider);
+
+	})
+
+
+	</script>
+	
+
+
+</body>
+</html>
+
