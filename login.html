@@ -16,24 +16,20 @@
   	<script type="text/javascript">
 
 	var provider = 'persona';
-
   
-    	// FirebaseSimpleLogin demo instantiation
     	var firebaseRef = new Firebase("https://psucapstone-a.firebaseio.com");
     	var auth = new FirebaseSimpleLogin(firebaseRef, function(error, user) 
 	{
       		if (error) 
 		{
-        		// an error occurred while attempting login
-        		alert(error);
+            		alert(error);
       		} 
 		else if (user) 
 		{
-        		// user authenticated with Firebase
         		alert('User ID: ' + user.id + ', Provider: ' + user.provider);
         	
-        		// Log out so we can log in again with a different provider.
-        		auth.logout();
+        		//Logout API follows
+        		//auth.logout();
       		} 
 		else 
 		{
@@ -41,17 +37,12 @@
       		}
     	});
 
-
 	signin.addEventListener('click', function()
 	{
 		auth.login(provider);
 	})
 
-
 	</script>
-	
-
-
 </body>
 </html>
 
