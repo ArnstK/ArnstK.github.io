@@ -9,13 +9,12 @@
    */
   FirefoxIM.Views.InstallView = Backbone.View.extend({
     initialize: function() {
-      var installView = this;
-      this.manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) + "/manifest.webapp";
+      this.manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) 
+        + "/manifest.webapp",
       if (navigator && navigator.mozApps && navigator.mozApps.install) {
-        var request = navigator.mozApps.checkInstalled(this.manifestURL);
-        request.onsuccess = function() {
-          installView.render();
-        };
+        navigator.mozApps.checkInstall(this.manifestURL).onsuccess(function() {
+          this.render();
+        })
       }
     },
 
@@ -26,7 +25,7 @@
     },
 
     render: function() {
-      $('#signin').after(this.$el);
+      $('menu').append(this.$el);
     },
 
     hideInstall: function() {
@@ -35,7 +34,7 @@
 
     installApp: function(e) {
       e.preventDefault();
-      var install = navigator.mozApps.install(this.manifestURL);
+      var install = navigator.mozApps.install(manifestURL);
       install.onsuccess = _.bind(this.hideInstall, this);
       install.onerror = function() {
         // App wasn't installed, info is in this.error.name
