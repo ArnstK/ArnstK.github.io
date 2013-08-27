@@ -3,19 +3,23 @@ html, body {
   padding: 0;
   font-size: 10px;
   background-color: #fff;
+  
 }
 
 body {
-  height: 100%;
+  height:100%;
   display: block;
+  overflow: hidden
+
 }
 
 #chat-thread-list {
-  height: 91%;
+  height: 70%;
   margin: 0 auto 87px;
-  overflow: auto;
+  overflow-x: hidden;
   padding-bottom: 42px;
   width:100%;
+  
 }
 
 section[role="region"] > header:first-child {
@@ -32,15 +36,22 @@ section[role="region"] {
   right: 0;
   bottom: 0;
   background: #fff;
+  
 }
 
 form[role="search"].bottom {
   z-index:2;
   position:fixed;
+  min-height: 42px;
   bottom:0;
   width: 100%;
   left:0;
   right:0;
+  word-wrap:normal;
+}
+
+#chat-input-textarea {
+  min-height: 42px;
 }
 
 [data-type="list"] {
@@ -53,4 +64,39 @@ form[role="search"].bottom {
 
 section[data-type="sidebar"] > header .icon.icon-close {
   background-image: url(headers/images/icons/close.png);
+}
+
+#newUserInputs, #userInfo{
+  font-size: 1.6rem;
+  margin-top: 8.0rem; 
+  padding-left: 1.5rem;
+}
+
+#newUserInputs label, #userInfo label{
+  float: left;
+  width: 25%;
+}
+
+.newUserInputError{
+  padding-left: 1.5rem;
+  font-size: 1.6rem;
+  color: red;
+}
+
+input[id="username"],
+input[id="email"],
+input[id="phone"]{
+  -moz-box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: 33%;
+  height: 2rem;
+  resize: none;
+  padding: 0 0.5rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.3rem;
+  box-shadow: none; /* override the box-shadow from the system (performance issue) */
+  background: #fff url(input_areas/images/ui/shadow.png) repeat-x;
 }

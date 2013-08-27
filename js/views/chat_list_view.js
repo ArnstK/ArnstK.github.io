@@ -10,9 +10,9 @@
 
     events: {
       "click .chat": "loadChatView",
-      "click #chatlist-new-chat": "loadNewChatView",
       "click #chatlist-open-menu": "openMenu",
-      "click #chatlist-close-menu": "closeMenu"
+      "click #chatlist-close-menu": "closeMenu",
+      "click #contact": "loadContactView",
     },
 
     initialize: function(collection, options) {
@@ -36,10 +36,19 @@
     addChat: function(chat) {
       var id = chat.get("id"),
         message = _.last(chat.get("messages"))
-      if (!id || !message) { return; /* Bad or Empty message */ }
+      
+      var authUsers = chat.get("authUsers");
+      var isAuthorized = authUsers[FirefoxIM.user.id];
 
+      if(!isAuthorized)
+        return;
+
+      if (!id || !message) { return; /* Bad or Empty message */ }
+     
+      var otherUserName = chat.getOtherUserName(); 
       $('#chats ul').append(FirefoxIM.Templates.chatListChat({
         id: id,
+	userId: otherUserName,
         message: message
       }));
     },
@@ -75,9 +84,20 @@
     },
 
     remove: function() {
+
       $('section[data-type="sidebar"]').remove();
+      this.stopListening(this.chatList);
       return Backbone.View.prototype.remove.call(this);
+    },
+
+     
+    loadContactView: function() {
+      var url = "users/" + FirefoxIM.user.id + "/contacts";
+      FirefoxIM.router.navigate(url ,{trigger: true});
     }
+
+
+
   });
 
   window.FirefoxIM = FirefoxIM;
